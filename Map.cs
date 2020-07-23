@@ -4,12 +4,15 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Logic
 {
     public class Map
     {
-        public byte GetSize { get; } = 50;
+        public Bitmap bmp;
+        public PictureBox GetPictureBox { get; }
+        public byte GetSize { get; } = 100;
         public Tile[,] tiles;
         public Tile this[int i, int j]
         {
@@ -29,6 +32,10 @@ namespace Logic
         {
             tiles = new Tile[GetSize, GetSize];
             init();
+            GetPictureBox = new PictureBox();
+            GetPictureBox.Size = new Size(GetSize*5, GetSize * 5);
+            GetPictureBox.Location = new Point();
+            bmp = new Bitmap(GetSize * 5, GetSize * 5);
         }
         private void init()
         {
@@ -48,7 +55,7 @@ namespace Logic
         {
             tiles[index.X, index.Y].change(t);
         }
-        public void redraw()
+        public void update()
         {
             for (int i = 0; i < GetSize; i++)
             {
@@ -60,7 +67,14 @@ namespace Logic
         }
         public void clear()
         {
-            init();
+            for (int i = 0; i < GetSize; i++)
+            {
+                for (int j = 0; j < GetSize; j++)
+                {
+                    tiles[i, j].type = TypeTile.EMPTY;
+                }
+            }
+            update();
         }
     }
 }

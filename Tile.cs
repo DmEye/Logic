@@ -12,25 +12,18 @@ namespace Logic
     {
         public byte TileSize { get; } = 5;
         public PointB index { get; }
-        public PictureBox GetPictureBox { get; }
         private Bitmap bmp;
         public TypeTile type;
         public Tile(PointB ind)
         {
             index = ind;
             type = TypeTile.EMPTY;
-            GetPictureBox = new PictureBox();
-            GetPictureBox.Location = new Point(index.X * 5, index.Y * 5);
-            GetPictureBox.Size = new Size(5, 5);
             bmp = new Bitmap((int)TileSize, (int)TileSize);
         }
         public Tile(PointB ind, TypeTile t)
         {
             index = ind;
             type = t;
-            GetPictureBox = new PictureBox();
-            GetPictureBox.Location = new Point(index.X * 5, index.Y * 5);
-            GetPictureBox.Size = new Size(5, 5);
             bmp = new Bitmap((int)TileSize, (int)TileSize);
         }
         public void change(TypeTile t)
@@ -43,6 +36,7 @@ namespace Logic
             {
                 case TypeTile.UP:
                     {
+                        clear();
                         bmp.SetPixel(2, 0, Color.Black);
                         bmp.SetPixel(2, 1, Color.Black);
                         bmp.SetPixel(2, 2, Color.Black);
@@ -56,17 +50,44 @@ namespace Logic
                     }
                 case TypeTile.DOWN:
                     {
-
+                        clear();
+                        bmp.SetPixel(2, 0, Color.Black);
+                        bmp.SetPixel(2, 1, Color.Black);
+                        bmp.SetPixel(2, 2, Color.Black);
+                        bmp.SetPixel(2, 3, Color.Black);
+                        bmp.SetPixel(2, 4, Color.Black);
+                        bmp.SetPixel(1, 3, Color.Black);
+                        bmp.SetPixel(0, 2, Color.Black);
+                        bmp.SetPixel(3, 3, Color.Black);
+                        bmp.SetPixel(4, 2, Color.Black);
                         break;
                     }
                 case TypeTile.LEFT:
                     {
-
+                        clear();
+                        bmp.SetPixel(4, 2, Color.Black);
+                        bmp.SetPixel(3, 2, Color.Black);
+                        bmp.SetPixel(2, 2, Color.Black);
+                        bmp.SetPixel(1, 2, Color.Black);
+                        bmp.SetPixel(0, 2, Color.Black);
+                        bmp.SetPixel(1, 1, Color.Black);
+                        bmp.SetPixel(2, 0, Color.Black);
+                        bmp.SetPixel(1, 3, Color.Black);
+                        bmp.SetPixel(2, 4, Color.Black);
                         break;
                     }
                 case TypeTile.RIGHT:
                     {
-
+                        clear();
+                        bmp.SetPixel(4, 2, Color.Black);
+                        bmp.SetPixel(3, 2, Color.Black);
+                        bmp.SetPixel(2, 2, Color.Black);
+                        bmp.SetPixel(1, 2, Color.Black);
+                        bmp.SetPixel(0, 2, Color.Black);
+                        bmp.SetPixel(3, 1, Color.Black);
+                        bmp.SetPixel(2, 0, Color.Black);
+                        bmp.SetPixel(3, 3, Color.Black);
+                        bmp.SetPixel(2, 4, Color.Black);
                         break;
                     }
                 case TypeTile.AND:
@@ -81,19 +102,30 @@ namespace Logic
                     }
                 case TypeTile.EMPTY:
                     {
-                        for (int i = 0; i < 5; i++)
-                        {
-                            for (int j = 0; j < 5; j++)
-                            {
-                                bmp.SetPixel(i, j, Color.White);
-                            }
-                        }
+                        clear();
                         break;
                     }
                 default:
                     break;
             }
-            GetPictureBox.Image = bmp;
+            for (int i = (int)index.X * (int)TileSize; i < (int)index.X * (int)TileSize +  5; i++)
+            {
+                for (int j = (int)index.Y * (int)TileSize; j < (int)index.Y * (int)TileSize + 5; j++)
+                {
+                    MainForm.map.bmp.SetPixel(i, j, bmp.GetPixel(i - (int)index.X * (int)TileSize, j - (int)index.Y * (int)TileSize));
+                }
+            }
+            MainForm.map.GetPictureBox.Image = MainForm.map.bmp;
+        }
+        public void clear()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    bmp.SetPixel(i, j, Color.White);
+                }
+            }
         }
     }
 }

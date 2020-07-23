@@ -22,7 +22,8 @@ namespace Logic
     }
     public partial class MainForm : Form
     {
-        public Map map;
+        static public Map map;
+        private TypeTile chosen;
         public MainForm()
         {
             InitializeComponent();
@@ -30,31 +31,51 @@ namespace Logic
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            chosen = TypeTile.UP;
             map = new Map();
-            init();
-            map.redraw();
+            map.GetPictureBox.MouseClick += GetPictureBox_MouseClick;
+            this.Controls.Add(map.GetPictureBox);
+            map.update();
         }
 
         private void MainForm_Paint(object sender, PaintEventArgs e)
         {
-            for (int i = 0; i < map.GetSize; i++)
+            /*map[0, 0].change(TypeTile.DOWN);
+            map[0, 0].draw();*/
+            /*map[0, 0].change(TypeTile.DOWN);*/
+        }
+        private void GetPictureBox_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (up_radio.Checked)
             {
-                if (i % 2 != 0)
-                {
-                    map[i, 10].change(TypeTile.UP);
-                    map.draw(map[i, 10].index);
-                }
+                chosen = TypeTile.UP;
+            }
+            if (down_radio.Checked)
+            {
+                chosen = TypeTile.DOWN;
+            }
+            if (left_radio.Checked)
+            {
+                chosen = TypeTile.LEFT;
+            }
+            if (right_radio.Checked)
+            {
+                chosen = TypeTile.RIGHT;
+            }
+            if (empty_radio.Checked)
+            {
+                chosen = TypeTile.EMPTY;
+            }
+            if (e.X <= 500 && e.Y <= 500 && e.X >= 0 && e.Y >= 0)
+            {
+                map[e.X / 5, e.Y / 5].change(chosen);
+                map[e.X / 5, e.Y / 5].draw();
             }
         }
-        private void init()
+
+        private void clear_b_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < map.GetSize; i++)
-            {
-                for (int j = 0; j < map.GetSize; j++)
-                {
-                    this.Controls.Add(map[i, j].GetPictureBox);
-                }
-            }
+            map.clear();
         }
     }
 }
