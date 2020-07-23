@@ -1,0 +1,10 @@
+D:\Дима\SharpProjects\Logic\bin\Debug\Logic.exe.config
+D:\Дима\SharpProjects\Logic\bin\Debug\Logic.exe
+D:\Дима\SharpProjects\Logic\bin\Debug\Logic.pdb
+D:\Дима\SharpProjects\Logic\obj\Debug\Logic.csprojAssemblyReference.cache
+D:\Дима\SharpProjects\Logic\obj\Debug\Logic.MainForm.resources
+D:\Дима\SharpProjects\Logic\obj\Debug\Logic.Properties.Resources.resources
+D:\Дима\SharpProjects\Logic\obj\Debug\Logic.csproj.GenerateResource.cache
+D:\Дима\SharpProjects\Logic\obj\Debug\Logic.csproj.CoreCompileInputs.cache
+D:\Дима\SharpProjects\Logic\obj\Debug\Logic.exe
+D:\Дима\SharpProjects\Logic\obj\Debug\Logic.pdb
