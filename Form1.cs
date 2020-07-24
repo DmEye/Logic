@@ -16,14 +16,16 @@ namespace Logic
         DOWN,
         LEFT,
         RIGHT,
-        AND,
-        OR,
-        EMPTY
+        ANDUP,
+        ORUP,
+        EMPTY,
+        NULL
     }
     public partial class MainForm : Form
     {
         static public Map map;
         private TypeTile chosen;
+        static public List<Signal> signals;
         public MainForm()
         {
             InitializeComponent();
@@ -36,13 +38,8 @@ namespace Logic
             map.GetPictureBox.MouseClick += GetPictureBox_MouseClick;
             this.Controls.Add(map.GetPictureBox);
             map.update();
-        }
-
-        private void MainForm_Paint(object sender, PaintEventArgs e)
-        {
-            /*map[0, 0].change(TypeTile.DOWN);
-            map[0, 0].draw();*/
-            /*map[0, 0].change(TypeTile.DOWN);*/
+            signals = new List<Signal>();
+            
         }
         private void GetPictureBox_MouseClick(object sender, MouseEventArgs e)
         {
@@ -66,7 +63,24 @@ namespace Logic
             {
                 chosen = TypeTile.EMPTY;
             }
-            if (e.X <= 500 && e.Y <= 500 && e.X >= 0 && e.Y >= 0)
+            if (andup_radio.Checked)
+            {
+                chosen = TypeTile.ANDUP;
+            }
+            if (signal_radio.Checked)
+            {
+                chosen = TypeTile.NULL;
+                if (e.X <= 500 && e.Y <= 500 && e.X >= 0 && e.Y >= 0)
+                {
+                    signals.Add(new Signal(new Point(e.X / 5, e.Y / 5)));
+                    this.Controls.Remove(map.GetPictureBox);
+                    this.Controls.Add(signals[signals.Count - 1].pbox);
+                    this.Controls.Add(map.GetPictureBox);
+                    signal_timer.Enabled = true;
+                    
+                }
+            }
+            if (e.X <= 500 && e.Y <= 500 && e.X >= 0 && e.Y >= 0 && chosen != TypeTile.NULL)
             {
                 map[e.X / 5, e.Y / 5].change(chosen);
                 map[e.X / 5, e.Y / 5].draw();
@@ -76,6 +90,21 @@ namespace Logic
         private void clear_b_Click(object sender, EventArgs e)
         {
             map.clear();
+        }
+
+        private void signal_timer_Tick(object sender, EventArgs e)
+        {
+            if (signals.Count == 0)
+            {
+                signal_timer.Enabled = false;
+            }
+            else
+            {
+                for (int i = 0; i < signals.Count; i++)
+                {
+                    signals[i].move();
+                }
+            }
         }
     }
 }

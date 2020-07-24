@@ -30,7 +30,7 @@ namespace Logic
         }
         public Map()
         {
-            tiles = new Tile[GetSize, GetSize];
+            tiles = new Tile[GetSize, GetSize]; 
             init();
             GetPictureBox = new PictureBox();
             GetPictureBox.Size = new Size(GetSize*5, GetSize * 5);
@@ -46,14 +46,6 @@ namespace Logic
                     tiles[i, j] = new Tile(new PointB(i, j));
                 }
             }
-        }
-        public void draw(PointB index)
-        {
-            tiles[index.X, index.Y].draw();
-        }
-        public void change(PointB index, TypeTile t)
-        {
-            tiles[index.X, index.Y].change(t);
         }
         public void update()
         {

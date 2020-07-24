@@ -90,12 +90,21 @@ namespace Logic
                         bmp.SetPixel(2, 4, Color.Black);
                         break;
                     }
-                case TypeTile.AND:
+                case TypeTile.ANDUP:
                     {
-
+                        clear();
+                        bmp.SetPixel(4, 2, Color.Blue);
+                        bmp.SetPixel(3, 2, Color.Blue);
+                        bmp.SetPixel(2, 2, Color.Blue);
+                        bmp.SetPixel(1, 2, Color.Blue);
+                        bmp.SetPixel(0, 2, Color.Blue);
+                        bmp.SetPixel(3, 1, Color.Blue);
+                        bmp.SetPixel(3, 3, Color.Blue);
+                        bmp.SetPixel(1, 1, Color.Blue);
+                        bmp.SetPixel(1, 3, Color.Blue);
                         break;
                     }
-                case TypeTile.OR:
+                case TypeTile.ORUP:
                     {
 
                         break;
